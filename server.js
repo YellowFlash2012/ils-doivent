@@ -5,6 +5,7 @@ import { config } from "dotenv"
 
 
 import connectDB from "./config/db.js"
+import schoolRoutes from "./routes/v1/schools.js"
 
 config()
 
@@ -26,6 +27,8 @@ if (process.env.NODE_ENV === "development") {
 app.get("/", (req,res) => {
     res.send("Welcome to our homepage")
 })
+
+app.use("/api/v1/schools", schoolRoutes);
 
 
 connectDB()
