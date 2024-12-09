@@ -6,6 +6,7 @@ import { config } from "dotenv"
 
 import connectDB from "./config/db.js"
 import schoolRoutes from "./routes/v1/schools.js"
+import { errorHandler, notFound } from "./middleware/error.js"
 
 config()
 
@@ -30,6 +31,9 @@ app.get("/", (req,res) => {
 
 app.use("/api/v1/schools", schoolRoutes);
 
+// middleware configs
+app.use(notFound)
+app.use(errorHandler)
 
 connectDB()
 app.listen(port, () =>
