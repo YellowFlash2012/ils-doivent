@@ -1,22 +1,39 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs"
+import validator from "validator";
 
 const { Schema } = mongoose;
 
 const schoolSchema = new Schema(
     {
-        name: { type: String, required: true },
+        name: {
+            type: String,
+            required: [true, "Please enter the school's name"],
+        },
 
-        school_principal: { type: String, required: true },
-        
+        school_principal: {
+            type: String,
+            required: [true, "Please enter the school's principal name"],
+        },
+
         email: {
             type: String,
-            required: true,
+            required: [true, "Please enter a valid email address"],
+            validate: {
+                validator: validator.isEmail,
+                message: "Please provide a valid email address",
+            },
             unique: true,
         },
         password: {
             type: String,
             required: true,
+            validate: {
+                validator: validator.isStrongPassword,
+                message:
+                    "Your password must have at least 1 special character, 1 uppercase letter, 1 lowercase letter, 1 number",
+            },
+            minlength: 13,
         },
         isAdmin: {
             type: Boolean,
