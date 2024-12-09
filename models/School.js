@@ -30,9 +30,9 @@ const schoolSchema = new Schema(
 );
 
 // compare passwords
-schoolSchema.methods.matchPw=async function (enteredPw) {
+schoolSchema.methods.matchPw = async function (enteredPw) {
     return await bcrypt.compare(enteredPw, this.password)
-}
+};
 
 // hash pw before saving new user
 schoolSchema.pre("save", async function (next) {
