@@ -4,7 +4,7 @@ import generateToken from "../../utils/generateToken.js";
 
 
 // @desc    Sign up a new school
-// @route   POST /api/v1/users/
+// @route   POST /api/v1/schools/
 // @access  Private / Admin Only
 export const registerNewSchool = asyncHandler(async(req, res) => {
     const { name, email, school_principal, password } = req.body;
@@ -39,6 +39,10 @@ export const registerNewSchool = asyncHandler(async(req, res) => {
         throw new Error("Invalid school data!");
     }
 })
+
+// @desc    Log in a school
+// @route   POST /api/v1/schools/login
+// @access  Private
 export const loginSchool = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
