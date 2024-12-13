@@ -14,16 +14,14 @@ const studentSchema = new mongoose.Schema(
         student_nip: {
             type: Number,
             required: true,
+            unique: true,
         },
         parent_name: {
             type: String,
-            
         },
         parent_nip: {
             type: Number,
-    
         },
-
 
         academic_year: {
             type: String,
@@ -33,7 +31,6 @@ const studentSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
-    
     },
     {
         timestamps: true,

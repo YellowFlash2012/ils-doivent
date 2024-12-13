@@ -66,3 +66,18 @@ export const loginSchool = asyncHandler(async (req, res) => {
         throw new Error("Invalid credentials");
     }
 })
+
+// @desc    logout user
+// @route   POST /api/v1/schools/logout
+// @access  Private
+export const logoutUser = (asyncHandler(async (req, res) => {
+    const user = await School.findById(req.user._id);
+
+    res.clearCookie("jwt")
+
+    res.status(200).json({
+        success:true,
+        message: `See you next time ${user.name}!`
+    });
+    })
+)

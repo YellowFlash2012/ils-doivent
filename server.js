@@ -7,6 +7,8 @@ import cookieParser from "cookie-parser"
 
 import connectDB from "./config/db.js"
 import schoolRoutes from "./routes/v1/schools.js"
+import debtorsRoutes from "./routes/v1/students.js"
+
 import { errorHandler, notFound } from "./middleware/error.js"
 
 config()
@@ -32,6 +34,7 @@ app.get("/", (req,res) => {
 })
 
 app.use("/api/v1/schools", schoolRoutes);
+app.use("/api/v1/students", debtorsRoutes);
 
 // middleware configs
 app.use(notFound)
