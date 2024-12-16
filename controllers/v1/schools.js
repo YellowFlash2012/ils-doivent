@@ -81,3 +81,20 @@ export const logoutUser = (asyncHandler(async (req, res) => {
     });
     })
 )
+
+// ***Admin only zone
+// @desc    Get all schools
+// @route   GET /api/v1/schools
+// @access  Private - Admin only
+
+// @desc    Get one single school
+// @route   GET /api/v1/schools/:id
+// @access  Private - Admin only
+
+// @desc    Update a school
+// @route   PUT /api/v1/schools/:id
+// @access  Private - Admin only
+
+// @desc    Delete a school
+// @route   DELETE /api/v1/users/:id
+// @access  Private - Admin only
