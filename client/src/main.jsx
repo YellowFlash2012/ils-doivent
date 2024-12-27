@@ -16,10 +16,10 @@ import Home from "../pages/Home.jsx";
 import PrivateRoutes from "../components/PrivateRoutes.jsx";
 import AdminRoutes from "../components/AdminRoutes.jsx";
 import Profile from "../pages/Profile.jsx";
+import SchoolsList from "../pages/SchoolsList.jsx";
 
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import SchoolsList from "../pages/SchoolsList.jsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(

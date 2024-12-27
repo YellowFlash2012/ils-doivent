@@ -1,3 +1,5 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Roboto+Condensed:wght@400;700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -5,8 +7,6 @@
   padding: 0;
 }
 
-/* fonts */
-@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Roboto+Condensed:wght@400;700&display=swap');
 
 html {
   font-size: 100%;
@@ -80,7 +80,7 @@ body {
 
 p {
   margin-bottom: 1.5rem;
-  max-width: 40em;
+  /* max-width: 40em; */
 }
 
 h1,
@@ -327,4 +327,9 @@ ul {
     display: inline-block;
     margin-right: 0.5rem;
   }
+}
+
+/* ***footer */
+footer p {
+  font-weight: bolder;
 }

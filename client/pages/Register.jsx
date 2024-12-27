@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
+import { Link, useNavigate} from "react-router-dom";
 
 import FormContainer from "../components/FormContainer";
 import "./login.css";
-import { useNavigate } from "react-router-dom";
 
 const Register = () => {
     const [name, setName] = useState("");
@@ -86,8 +86,13 @@ const Register = () => {
                         variant="danger"
                         size="lg"
                         style={{ width: "100%" }}
-                        onClick={()=>navigate("/admin")}
-                    >Annuler</Button>
+                    onClick={()=>navigate("/admin")}
+                    >
+                        
+                        Annuler
+
+                        
+                    </Button>
 
                     <Button
                         type="submit"
