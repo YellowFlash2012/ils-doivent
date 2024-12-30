@@ -11,7 +11,7 @@ function App() {
         <>
             <ToastContainer />
     
-            <main className="py-3">
+            <main className="py-1">
                 <Container>
                     <Outlet />
                 </Container>

@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 
 const schoolSchema = new Schema(
     {
-        name: {
+        school_name: {
             type: String,
             required: [true, "Please enter the school's name"],
         },

@@ -333,3 +333,8 @@ ul {
 footer p {
   font-weight: bolder;
 }
+
+/* layout body */
+.layout-body {
+  height: 80vh;
+}
