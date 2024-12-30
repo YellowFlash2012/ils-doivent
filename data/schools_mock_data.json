@@ -1,83 +1,83 @@
 [
 {
-"school_name":"Buzzster",
+"name":"Buzzster",
 "school_principal":"Neila Swadlen",
 "email":"nswadlen0@census.gov",
 "password":"mN2'@)o2MKb9iwQG!u*6,|@",
 "isAdmin":false
 },
 {
-"school_name":"Latz",
+"name":"Latz",
 "school_principal":"Ginger Gilhool",
 "email":"ggilhool1@over-blog.com",
 "password":"xV2*s\\KU7Ei'L}M\\#s$#",
 "isAdmin":false
 },
 {
-"school_name":"Eimbee",
+"name":"Eimbee",
 "school_principal":"Allistir Mulhill",
 "email":"amulhill2@lycos.com",
 "password":"sE6\"x>P#95Xd/etT?",
 "isAdmin":false
 },
 {
-"school_name":"Oloo",
+"name":"Oloo",
 "school_principal":"Derward Sherrell",
 "email":"dsherrell3@networkadvertising.org",
 "password":"jY4#`sf1*5vy)",
 "isAdmin":true
 },
 {
-"school_name":"Innojam",
+"name":"Innojam",
 "school_principal":"Ileane Vick",
 "email":"ivick4@techcrunch.com",
 "password":"mL3>JjE!M.Sa9EC#",
 "isAdmin":false
 },
 {
-"school_name":"Eamia",
+"name":"Eamia",
 "school_principal":"Cinda Joderli",
 "email":"cjoderli5@walmart.com",
 "password":"wC4,,E!6z8'Nw",
 "isAdmin":false
 },
 {
-"school_name":"Yadel",
+"name":"Yadel",
 "school_principal":"Conney Bradbury",
 "email":"cbradbury6@opera.com",
 "password":"qU6%enWgv2=(LJS\"*",
 "isAdmin":false
 },
 {
-"school_name":"Viva",
+"name":"Viva",
 "school_principal":"Alberta Winchester",
 "email":"awinchester7@theglobeandmail.com",
 "password":"zU9\"Cd.evj/6Q>l$Phiuw%DG",
 "isAdmin":false
 },
 {
-"school_name":"Yata",
+"name":"Yata",
 "school_principal":"Eada Hallbord",
 "email":"ehallbord8@nps.gov",
 "password":"mU2%L~\\4B7/a!k)z21UX",
 "isAdmin":false
 },
 {
-"school_name":"Wikivu",
+"name":"Wikivu",
 "school_principal":"Stefano Bartosch",
 "email":"sbartosch9@bandcamp.com",
 "password":"sD0~+HhsPfd}7=",
 "isAdmin":false
 },
 {
-"school_name":"Dablist",
+"name":"Dablist",
 "school_principal":"Early Hutley",
 "email":"ehutleya@ask.com",
 "password":"zD6*+qA2f2!{!hMt*X/)ZXQcAZ",
 "isAdmin":false
 },
 {
-"school_name":"Topicware",
+"name":"Topicware",
 "school_principal":"Alameda Avieson",
 "email":"aaviesonb@yahoo.com",
 "password":"zZ0$R_4LrOs`dt=",

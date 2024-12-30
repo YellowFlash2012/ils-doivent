@@ -7,7 +7,7 @@ import generateToken from "../../utils/generateToken.js";
 // @route   POST /api/v1/schools/
 // @access  Private / Admin Only
 export const registerNewSchool = asyncHandler(async(req, res) => {
-    const { name, email, school_principal, password } = req.body;
+    const { name, email, school_principal, password, isAdmin } = req.body;
 
     const existingSchool = await School.findOne({ email });
 
@@ -19,7 +19,7 @@ export const registerNewSchool = asyncHandler(async(req, res) => {
         );
     }
 
-    const school = await School.create({ name, email, school_principal, password });
+    const school = await School.create({ name, email, school_principal, password, isAdmin });
 
     if (school) {
         generateToken(res, school._id);
@@ -86,6 +86,16 @@ export const logoutUser = (asyncHandler(async (req, res) => {
 // @desc    Get all schools
 // @route   GET /api/v1/schools
 // @access  Private - Admin only
+export const getAllUsersByAdmin = asyncHandler(async (req, res) => {
+    const users = await School.find({})//.select("-password");
+
+
+    res.status(200).json({
+        success: true,
+        count: users.length,
+        data: users,
+    });
+});
 
 // @desc    Get one single school
 // @route   GET /api/v1/schools/:id
