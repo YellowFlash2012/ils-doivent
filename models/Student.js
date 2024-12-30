@@ -1,5 +1,26 @@
 import mongoose from "mongoose";
 
+const commentSchema = new mongoose.Schema(
+    {
+        school: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: "School",
+        },
+        name: {
+            type: String,
+            required: true,
+        },
+        comment: {
+            type: String,
+            required: true,
+        },
+    },
+    {
+        timestamps: true,
+    }
+);
+
 const studentSchema = new mongoose.Schema(
     {
         school: {
@@ -31,6 +52,7 @@ const studentSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
+        comments: [commentSchema],
     },
     {
         timestamps: true,
