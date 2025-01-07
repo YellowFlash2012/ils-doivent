@@ -36,8 +36,7 @@ export const studentSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ["Student"],
         }),
-        
-        
+
         addAComment: builder.mutation({
             query: ({ id, data }) => ({
                 url: `/api/v1/students/${id}/comments`,
@@ -47,10 +46,13 @@ export const studentSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ["Student"],
         }),
-
     }),
 });
 
 export const {
-    getAllStudents,getOneStudent,addNewStudent,updateStudent,addAComment
+    useGetAllStudentsQuery,
+    useGetOneStudentQuery,
+    useAddNewStudentMutation,
+    useUpdateStudentMutation,
+    useAddACommentMutation,
 } = studentSlice;

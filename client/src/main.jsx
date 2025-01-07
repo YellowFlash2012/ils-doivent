@@ -23,6 +23,7 @@ import SchoolsList from "../pages/SchoolsList.jsx";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { store } from "../app/store.js";
+import Student from "../pages/Student.jsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -36,6 +37,8 @@ const router = createBrowserRouter(
 
             <Route path="" element={<PrivateRoutes />}>
                 <Route path="/profile" element={<Profile />} />
+
+                <Route path="/students/:id" element={<Student />} />
             </Route>
 
             <Route path="" element={<AdminRoutes />}>

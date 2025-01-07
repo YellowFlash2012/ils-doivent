@@ -11,7 +11,11 @@ export const getAllDebitors = asyncHandler(async (req, res) => {
         ? { student_name: { $regex: req.query.keyword, $options: "i" } }
         : {};
     
-    const debitors = await Student.find({ ...keyword });
+    const debitors = await Student.find({ ...keyword }).populate(
+        "school",
+        
+        "name school_principal"
+    ).exec();
     
     res.status(200).json({
         success: true,
@@ -24,7 +28,11 @@ export const getAllDebitors = asyncHandler(async (req, res) => {
 // @route   GET /api/v1/students/:id
 // @access  Private
 export const getOneDebitor = asyncHandler(async (req, res) => {
-    const debitor = await Student.findById(req.params.id);
+    const debitor = await Student.findById(req.params.id).populate(
+        "school",
+        
+        "name school_principal"
+    );
 
     if (debitor) {
         res.status(200).json({

@@ -336,5 +336,5 @@ footer p {
 
 /* layout body */
 .layout-body {
-  height: 80vh;
+  min-height: 80vh;
 }
