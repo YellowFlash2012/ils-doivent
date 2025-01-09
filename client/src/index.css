@@ -330,8 +330,23 @@ ul {
 }
 
 /* ***footer */
+
+footer {
+  height: 99px;
+  background-color: #131722;
+  color: #fff;
+
+}
 footer p {
   font-weight: bolder;
+  
+}
+
+footer .social-icons {
+  cursor: pointer;
+  width: 28px;
+  height: 27px;
+  
 }
 
 /* layout body */
