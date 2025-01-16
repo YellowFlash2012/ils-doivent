@@ -302,7 +302,7 @@ ul {
   min-height: 100vh;
 }
 
-.coffee-info {
+/* .coffee-info {
   text-align: center;
   text-transform: capitalize;
   margin-bottom: 1rem;
@@ -313,7 +313,7 @@ ul {
 }
 .coffee-info a {
   color: var(--primary-500);
-}
+} */
 
 .text-danger {
   color: #842029;
@@ -327,6 +327,10 @@ ul {
     display: inline-block;
     margin-right: 0.5rem;
   }
+}
+
+.student-card {
+  cursor: pointer;
 }
 
 /* ***footer */

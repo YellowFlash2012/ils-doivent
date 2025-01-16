@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.route("/").get(getAllDebitors).post(protect, addNewDebitor);
 
-router.route("/:id").get(protect, getOneDebitor).delete(protect,  deleteDebitor);
+router.route("/:id").get( getOneDebitor).delete(protect,  deleteDebitor);
 
 export default router;
