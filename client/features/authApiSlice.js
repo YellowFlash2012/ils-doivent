@@ -10,6 +10,16 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 credentials: "include",
             }),
         }),
+
+        logout: builder.mutation({
+            query: () => ({
+                url: "/api/v1/schools/logout",
+                method: "POST",
+                credentials: "include",
+            }),
+        }),
+
+        // ***admin section
         register: builder.mutation({
             query: (data) => ({
                 url: "/api/v1/schools",
@@ -18,15 +28,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 credentials: "include",
             }),
         }),
-        logout: builder.mutation({
-            query: () => ({
-                url: "/api/v1/schools/logout",
-                method: "POST",
-                credentials: "include",
-            }),
-        }),
         
-        // ***admin section
         getAllSchools: builder.query({
             query: () => ({
                 url: "/api/v1/schools",

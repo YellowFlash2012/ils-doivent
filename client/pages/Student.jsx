@@ -1,176 +1,201 @@
+import { useState } from "react";
+import { useSelector} from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { Row, Button, ListGroup, Form, Card, Col } from "react-bootstrap";
+import { Row, Button, ListGroup, Form, Card, Col, FormGroup } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 import Layout from "../components/Layout";
-import { useGetOneStudentQuery } from "../features/studentSlice";
+import { useAddACommentMutation, useGetOneStudentQuery } from "../features/studentSlice";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 
 const Student = () => {
+    const { id } = useParams();
+    const [commentTitle, setCommentTitle] = useState("");
+    const [commentBody, setCommentBody] = useState("");
 
-  const { id } = useParams();
+    const { data, error, isLoading, refetch } = useGetOneStudentQuery(id);
 
-  const { data, error, isLoading } = useGetOneStudentQuery(id);
+    const [addAComment, { isLoading: commentLoading }] = useAddACommentMutation();
 
-  return (
-      <Layout>
-          <Link to="/" className="btn btn-light my-3">
-              Retour
-          </Link>
+    const { userInfo } = useSelector(store => store.auth);
 
-          {isLoading ? (
-              <Row className="mt-3">
-                  <Loader />
-              </Row>
-          ) : error ? (
-              <Row className="mt-3">
-                  <Message variant="danger">
-                      {error?.data?.message || error.error}
-                  </Message>
-              </Row>
-          ) : (
-              <>
-                  <Row>
-                      <Col md={5}></Col>
+    const submitCommentHandler = async (e) => {
+        e.preventDefault()
 
-                      <Col md={4}>
-                          <ListGroup variant="flush">
-                              <ListGroup.Item>
-                                  <h3>student.name</h3>
-                              </ListGroup.Item>
+        const data = { commentTitle, commentBody };
 
-                              <ListGroup.Item></ListGroup.Item>
+        try {
+            const res = await addAComment({ id, data }).unwrap();
 
-                              <ListGroup.Item>Price:</ListGroup.Item>
-                              <ListGroup.Item>Description:</ListGroup.Item>
-                          </ListGroup>
-                      </Col>
+            refetch();
 
-                      <Col md={3}>
-                          <Card>
-                              <ListGroup variant="flush">
-                                  <ListGroup.Item>
-                                      <Row>
-                                          <Col>Montant dû:</Col>
+            toast.success(res?.message);
 
-                                          <Col>
-                                              <strong>
-                                                  student.outstanding_debt
-                                              </strong>
-                                          </Col>
-                                      </Row>
-                                  </ListGroup.Item>
+        
+            setCommentTitle("");
+            setCommentBody("");
+        } catch (error) {
+            toast.error(error?.data?.message || error?.message);
+        }
+    }
 
-                                  <ListGroup.Item>
-                                      <Row>
-                                          <Col>Status:</Col>
+    return (
+        <Layout>
+            <Link to="/" className="btn btn-light my-3">
+                Retour
+            </Link>
 
-                                          <Col>
-                                              <strong></strong>
-                                          </Col>
-                                      </Row>
-                                  </ListGroup.Item>
+            {isLoading ? (
+                <Row className="mt-3">
+                    <Loader />
+                </Row>
+            ) : error ? (
+                <Row className="mt-3">
+                    <Message variant="danger">
+                        {error?.data?.message || error.error}
+                    </Message>
+                </Row>
+            ) : (
+                <>
+                    <Row>
+                        <Col md={4}>
+                            <ListGroup.Item>
+                                <h2>École : {data?.data?.school?.name}</h2>
+                            </ListGroup.Item>
 
-                                  <ListGroup.Item>
-                                      <Button
-                                          className="btn-block"
-                                          type="button"
-                                          variant="success"
-                                          // disabled={
+                            <ListGroup.Item>
+                                <h3>
+                                    Directeur de l'école:{" "}
+                                    {data?.data?.school?.school_principal}
+                                </h3>
+                            </ListGroup.Item>
+                        </Col>
 
-                                          // }
-                                      >
-                                          Add To Cart
-                                      </Button>
-                                  </ListGroup.Item>
-                              </ListGroup>
-                          </Card>
-                      </Col>
-                  </Row>
+                        <Col md={4}>
+                            <ListGroup variant="flush">
+                                <ListGroup.Item>
+                                    <h3>
+                                        Nom de l'élève :{" "}
+                                        {data?.data?.student_name}
+                                    </h3>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <h3>
+                                        NIP de l'élève :{" "}
+                                        {data?.data?.student_nip}
+                                    </h3>
+                                </ListGroup.Item>
 
-                  {/* comment section */}
-                  <Row className="review">
-                      <Col md={6}>
-                          <h2>Commentaires</h2>
-                          {/* {product.reviews.length === 0 && (
+                                <ListGroup.Item>
+                                    <h3>
+                                        Nom du parent d'élève :{" "}
+                                        {data?.data?.parent_name}
+                                    </h3>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <h3>
+                                        NIP du parent d'élève :{" "}
+                                        {data?.data?.parent_nip}
+                                    </h3>
+                                </ListGroup.Item>
+                            </ListGroup>
+                        </Col>
+
+                        <Col md={4}>
+                            <Card
+                                className={
+                                    data?.data?.outstanding_debt < 30000
+                                        ? `my-3 py-3 rounded border border-warning student-card`
+                                        : `my-3 py-3 rounded border border-danger student-card`
+                                }
+                            >
+                                <ListGroup variant="flush">
+                                    <ListGroup.Item>
+                                        <Row>
+                                            <Col>
+                                                <h3>
+                                                    Montant dû :
+                                                    <strong>
+                                                        {
+                                                            data?.data
+                                                                ?.outstanding_debt
+                                                        }
+                                                    </strong>
+                                                </h3>
+                                            </Col>
+                                        </Row>
+                                    </ListGroup.Item>
+                                </ListGroup>
+                            </Card>
+                        </Col>
+                    </Row>
+
+                    {/* comment section */}
+                    <Row className="review">
+                        <Col md={6}>
+                            <h2>Commentaires</h2>
+                            {data?.data?.comments.length === 0 && (
                                 <Message>Aucun commentaire</Message>
-                            )} */}
+                            )}
 
-                          <ListGroup variant="flush">
-                              {/* {product.reviews.map((review) => (
-                                    <ListGroup.Item key={review._id}>
-                                        <strong>{review.name}</strong>
+                            <ListGroup variant="flush">
+                                {data?.data?.comments.map((comment) => (
+                                    <ListGroup.Item key={comment._id}>
+                                        <strong>{comment?.school?.name}</strong>
 
-                                        <Rating value={review.rating} />
+                                        <p>{comment?.title}</p>
 
                                         <p>
-                                            {review.createdAt.substring(0, 10)}
+                                            {comment?.createdAt.substring(
+                                                0,
+                                                10
+                                            )}
                                         </p>
 
-                                        <p>{review.comment}</p>
+                                        <p>{comment?.comment}</p>
                                     </ListGroup.Item>
-                                ))} */}
+                                ))}
 
-                              <ListGroup.Item>
-                                  <h2>Laisser un commentaire</h2>
+                                <ListGroup.Item>
+                                    <h2>Laisser un commentaire</h2>
 
-                                  {/* {userInfo ? (
-                                        <Form onSubmit={submitReviewHandler}>
+                                    {userInfo ? (
+                                        <Form onSubmit={submitCommentHandler}>
                                             <FormGroup
-                                                controlId="rating"
+                                                controlId="commentTitle"
                                                 className="my-2"
                                             >
-                                                <Form.Label>Rating</Form.Label>
-
-                                                <Form.Control
-                                                    as="select"
-                                                    value={rating}
-                                                    onChange={(e) =>
-                                                        setRating(
-                                                            Number(
-                                                                e.target.value
-                                                            )
-                                                        )
-                                                    }
-                                                >
-                                                    <option value="">
-                                                        Select...
-                                                    </option>
-
-                                                    <option value="1">
-                                                        1 - Poor
-                                                    </option>
-
-                                                    <option value="2">
-                                                        2 - Fair
-                                                    </option>
-
-                                                    <option value="3">
-                                                        3 - Good
-                                                    </option>
-
-                                                    <option value="4">
-                                                        4 - Very Good
-                                                    </option>
-
-                                                    <option value="5">
-                                                        5 - Excellent
-                                                    </option>
-                                                </Form.Control>
-                                            </FormGroup>
-
-                                            <FormGroup
-                                                controlId="comment"
-                                                className="my-2"
-                                            >
-                                                <Form.Label>Comment</Form.Label>
+                                                <Form.Label>
+                                                    Titre (facultatif)
+                                                </Form.Label>
 
                                                 <Form.Control
                                                     as="textarea"
                                                     row="3"
-                                                    value={comment}
+                                                    value={commentTitle}
                                                     onChange={(e) =>
-                                                        setComment(
+                                                        setCommentTitle(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                ></Form.Control>
+                                            </FormGroup>
+
+                                            <FormGroup
+                                                controlId="commentBody"
+                                                className="my-2"
+                                            >
+                                                <Form.Label>
+                                                    Commentaire (obligatoire)
+                                                </Form.Label>
+
+                                                <Form.Control
+                                                    as="textarea"
+                                                    row="3"
+                                                    value={commentBody}
+                                                    onChange={(e) =>
+                                                        setCommentBody(
                                                             e.target.value
                                                         )
                                                     }
@@ -179,33 +204,35 @@ const Student = () => {
 
                                             <Button
                                                 variant="primary"
-                                                disabled={reviewLoading}
-                                                        style={{ width: "100%" }}
-                                                        type="submit"
+                                                disabled={commentLoading}
+                                                style={{ width: "100%" }}
+                                                type="submit"
                                             >
-                                                {reviewLoading ? (
+                                                {commentLoading ? (
                                                     <Spinner
                                                         animation="border"
                                                         role="status"
                                                     />
                                                 ) : (
-                                                    "Submit Your review"
+                                                    "Soumettre votre commentaire"
                                                 )}
                                             </Button>
                                         </Form>
                                     ) : (
                                         <Message variant="danger">
-                                            <Link to="/login">Login</Link> to
-                                            submit a review
+                                            <Link to="/login">
+                                                Connectez-vous
+                                            </Link>{" "}
+                                            pour soumettre un commentaire
                                         </Message>
-                                    )} */}
-                              </ListGroup.Item>
-                          </ListGroup>
-                      </Col>
-                  </Row>
-              </>
-          )}
-      </Layout>
-  );
+                                    )}
+                                </ListGroup.Item>
+                            </ListGroup>
+                        </Col>
+                    </Row>
+                </>
+            )}
+        </Layout>
+    );
 };
 export default Student;

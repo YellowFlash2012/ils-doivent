@@ -7,9 +7,9 @@ const commentSchema = new mongoose.Schema(
             required: true,
             ref: "School",
         },
-        name: {
+        title: {
             type: String,
-            required: true,
+            // required: true,
         },
         comment: {
             type: String,
