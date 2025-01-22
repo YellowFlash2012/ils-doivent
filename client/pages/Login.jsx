@@ -1,17 +1,52 @@
 import { useState } from "react";
 
 import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import FormContainer from "../components/FormContainer";
 import "./login.css"
+import { toast } from "react-toastify";
+import { useLoginMutation } from "../features/authApiSlice";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../features/authSlice";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const isLoading = false;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const loginHandler = () => { }
+    const [login, { isLoading }] = useLoginMutation();
+
+    const loginHandler = async (e) => { 
+        e.preventDefault()
+
+        if (!email || !password) {
+            return toast.error("Veuillez renseigner ces champs pour continuer !");
+        }
+
+        try {
+
+            const data = { email, password };
+
+            const res = await login(
+                data
+            ).unwrap();
+
+            dispatch(setCredentials({ ...res?.data }))
+            
+            toast.success(res?.message)
+
+            if (res?.data?.isAdmin) {
+                navigate("/admin")
+            } else {
+                navigate("/")
+            }
+            
+        } catch (error) {
+            toast.error(error?.data?.message || error?.error);
+        }
+    }
     
     return (
         <FormContainer>

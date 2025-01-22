@@ -5,6 +5,8 @@ import { Link, useNavigate} from "react-router-dom";
 
 import FormContainer from "../components/FormContainer";
 import "./login.css";
+import { useRegisterMutation } from "../features/authApiSlice";
+import { toast } from "react-toastify";
 
 const Register = () => {
     const [name, setName] = useState("");
@@ -16,8 +18,29 @@ const Register = () => {
 
     const navigate = useNavigate();
 
-    const isLoading = false;
-    const registerHandler = () => {};
+    const [register, { isLoading }] = useRegisterMutation();
+
+    const registerHandler = async (e) => {
+        e.preventDefault()
+        
+        if (!name||!school_principal||!email||!password||!cpassword) {
+            toast.error("Ces champs sont obligatoires!");
+        };
+
+        if (password!==cpassword) {
+            toast.error("Les mots de passes ne sont pas conformes!");
+        };
+
+        try {
+            const res = await register({ name, school_principal, email, password }).unwrap();
+
+            toast.success(res?.message)
+
+            navigate("/admin")
+        } catch (error) {
+            toast.error(error?.data?.message || error?.error);
+        }
+    };
 
     return (
         <FormContainer>
@@ -105,7 +128,7 @@ const Register = () => {
                         {isLoading ? (
                             <Spinner animation="border" role="status" />
                         ) : (
-                            "Se connecter"
+                            "S'inscrire"
                         )}
                     </Button>
                 </Form>

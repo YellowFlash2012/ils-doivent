@@ -45,9 +45,10 @@ export const registerNewSchool = asyncHandler(async(req, res) => {
 // @access  Private
 export const loginSchool = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-
+    
     const school = await School.findOne({ email });
-
+    console.log(password);
+    
     if (school && (await school.matchPw(password))) {
         generateToken(res, school._id);
 

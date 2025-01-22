@@ -25,7 +25,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 url: "/api/v1/schools",
                 method: "POST",
                 body: data,
-                credentials: "include",
+                // credentials: "include",
             }),
         }),
         

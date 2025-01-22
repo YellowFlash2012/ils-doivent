@@ -28,14 +28,13 @@ import Student from "../pages/Student.jsx";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<App />}>
-            <Route index={true} path="/" element={<Home />} />
-
-            {/* search route */}
-            <Route path="/search/:keyword" element={<Home />} />
-
             <Route path="/login" element={<Login />} />
 
             <Route path="" element={<PrivateRoutes />}>
+                <Route index={true} path="/" element={<Home />} />
+                {/* search route */}
+                <Route path="/search/:keyword" element={<Home />} />
+                
                 <Route path="/profile" element={<Profile />} />
 
                 <Route path="/students/:id" element={<Student />} />

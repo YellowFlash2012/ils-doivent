@@ -1,13 +1,9 @@
 import { Container } from "react-bootstrap";
-import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
 
 const PrivateRoutes = () => {
-    return (
-        <main className="py-3">
-            <Container>
-                <Outlet />
-            </Container>
-        </main>
-    );
+    const { userInfo } = useSelector((store) => store.auth);
+    return userInfo ? <Outlet /> : <Navigate to="/login" replace />;
 };
 export default PrivateRoutes;

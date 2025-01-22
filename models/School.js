@@ -48,6 +48,7 @@ const schoolSchema = new Schema(
 
 // compare passwords
 schoolSchema.methods.matchPw = async function (enteredPw) {
+    // console.log(this.password);
     return await bcrypt.compare(enteredPw, this.password)
 };
 
